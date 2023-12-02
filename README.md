@@ -22,4 +22,11 @@ AUTHENTICATION_BACKENDS = (
     'guardian.backends.ObjectPermissionBackend'
 )
 ```
-
+### 3. Add `django-restolp.urls` to your main `urls.py` urlpatterns.
+```python
+    urlpatterns = [
+        ...
+        path('', include('django-restolp')),
+        ...
+    ]
+```
