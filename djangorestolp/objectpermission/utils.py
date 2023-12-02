@@ -6,7 +6,7 @@ from guardian.models import (
     UserObjectPermission,
     GroupObjectPermission)
 from django.apps import apps
-from modelpermission.utils import BaseModelLevelPermissions
+from djangorestolp.modelpermission.utils import BaseModelLevelPermissions
 import json
 
 class BaseObjectLevelPermission:

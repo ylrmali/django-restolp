@@ -1,5 +1,5 @@
 from rest_framework import routers
-from objectpermission.views import (
+from djangorestolp.objectpermission.views import (
     ObjectLevelUserPermissions,
     ObjectLevelGroupPermissions,
 )

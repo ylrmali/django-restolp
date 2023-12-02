@@ -16,6 +16,6 @@ Example:
 from django.urls import path, include
 
 urlpatterns = [
-    path('mlp/', include('modelpermission.urls')),
-    path('olp/', include('objectpermission.urls'))
+    path('mlp/', include('djangorestolp.modelpermission.urls')),
+    path('olp/', include('djangorestolp.objectpermission.urls'))
 ]

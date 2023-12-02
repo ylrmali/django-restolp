@@ -1,6 +1,6 @@
 from rest_framework import routers
 from rest_framework.response import Response
-from modelpermission.views import (
+from djangorestolp.modelpermission.views import (
     HomeView,
     UserPermissions, 
     ReadOnlyUserPermission, 

@@ -6,7 +6,7 @@ from rest_framework.permissions import (
     IsAdminUser,
     DjangoModelPermissions, 
     DjangoObjectPermissions) 
-from modelpermission.serializer import (
+from djangorestolp.modelpermission.serializer import (
     PermissionSerializer, 
     GroupPermissionSerializer)
 from rest_framework.generics import (
@@ -18,14 +18,14 @@ from rest_framework.generics import (
 from django.contrib.auth.models import (
     Permission, 
     Group)
-from modelpermission.utils import (
+from djangorestolp.modelpermission.utils import (
     UserModelLevelPermissions, 
     GroupModelLevelPermission)
-from objectpermission.utils import (
+from djangorestolp.objectpermission.utils import (
     BaseObjectLevelPermission, 
     UserObjectLevelPermission, 
     GroupObjectLevelPermission)
-from modelpermission import urls
+from djangorestolp.modelpermission import urls
 
 
 class HomeView(ListAPIView):

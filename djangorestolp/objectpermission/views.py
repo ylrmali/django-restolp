@@ -5,7 +5,7 @@ from rest_framework.permissions import (
     IsAdminUser,
     DjangoModelPermissions,
     DjangoObjectPermissions)
-from objectpermission.serializer import (
+from djangorestolp.objectpermission.serializer import (
     ObjectLevelUserSerializer,
     ObjectLevelGroupSerializer)
 from rest_framework.generics import (
@@ -17,11 +17,11 @@ from rest_framework.generics import (
 from django.contrib.auth.models import (
     Permission,
     Group)
-from objectpermission.utils import (
+from djangorestolp.objectpermission.utils import (
     UserObjectLevelPermission,
     GroupObjectLevelPermission)
 from django.contrib.auth import get_user_model
-from objectpermission.utils import Validators
+from djangorestolp.objectpermission.utils import Validators
 
 # Create your views here.
 
