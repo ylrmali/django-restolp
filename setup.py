@@ -12,7 +12,6 @@ setup(
     description='Django Rest Framework Object Level Permissions',
     url='https://github.com/ylrmali/django-restolp.git',
     install_requires=[
-        'Django>=4.0',
         'djangorestframework>=3.14.0',
         'django-guardian>=2.4.0',
     ]
