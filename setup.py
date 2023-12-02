@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = __import__('restolp').__version__
+version = "0.0.1"
 
 setup(
     name='django-restolp',
@@ -10,7 +10,7 @@ setup(
     author='Ali Yıldırım',
     author_email='ylrmali1289@gmail.com',
     description='Django Rest Framework Object Level Permissions',
-    url='https://github.com/ylrmali/django-restolp',
+    url='https://github.com/ylrmali/django-restolp.git',
     install_requires=[
         'Django>=4.0',
         'djangorestframework>=3.14.0',
