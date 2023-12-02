@@ -1,7 +1,2 @@
-from django.apps import AppConfig
-
-class DjangorestolphConfig(AppConfig):
-    name = 'djangorestolp'
-
-    def ready(self):
-        pass
+if django.VERSION < (3, 2):
+    default_app_config = 'rest_framework.apps.RestFrameworkConfig'
