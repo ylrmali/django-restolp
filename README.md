@@ -10,13 +10,14 @@
 pip install git+https://github.com/ylrmali/django-restolp.git
 
 ```
+! pypip installation will come
 
 ### 2. Add `django-restolp` to your `INSTALLED_APPS` setting.
 
 ```python
 INSTALLED_APPS = [
     ...
-    'django-restolp',
+    'djangorestolp',
 ]
 
 ```
@@ -36,7 +37,7 @@ AUTHENTICATION_BACKENDS = (
 ```python
     urlpatterns = [
         ...
-        path('', include('django-restolp')),
+        path('', include('djangorestolp')),
         ...
     ]
 
