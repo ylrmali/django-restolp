@@ -3,5 +3,5 @@ from django.utils.translation import gettext_lazy as _
 
 
 class ObjectpermissionConfig(AppConfig):
-    name = 'objectpermission'
+    name = 'djangorestolp.objectpermission'
     verbose_name = _('Object Permission')
