@@ -1,0 +1,89 @@
+{
+"result": {
+    "username": {
+        "app_label": {
+                "app1": {
+                    "content_type": {
+                        "car": [
+                            {
+                                "id": 1,
+                                "name": "BMW",
+                                "permissions": [
+                                    "Can view car",
+                                    "Can edit car",
+                                    "Can delete car",
+                                    "Can change car"
+                                ]
+                            },
+                            {
+                                "id": 2,
+                                "name": "Mercedes",
+                                "permissions": [
+                                    "Can view car",
+                                    "Can edit car",
+                                    "Can delete car",
+                                    "Can change car"
+                                ]
+                            }]
+                        },
+                        "plane": {
+                            "id": 9,
+                            "name": "Airbus",
+                            "permissions": [
+                                "Can view plane",
+                                "Can edit plane",
+                                "Can delete plane",
+                                "Can change plane"
+                            ]
+                        } 
+                },
+                "app2": {
+                    "content_type": {
+                        "train": [
+                            {
+                                "id": 1,
+                                "permissions": [
+                                    "Can view train",
+                                    "Can edit train",
+                                    "Can delete train",
+                                    "Can change train"
+                                ]
+                            },
+                            {
+                                "id": 2,
+                                "permissions": [
+                                    "Can view train",
+                                    "Can edit train",
+                                    "Can delete train",
+                                    "Can change train"
+                                ]
+                            }
+                        ],
+                        "bus": [
+                            {
+                                "id": 2,
+                                "permissions": [
+                                    "Can view bus",
+                                    "Can edit bus",
+                                    "Can delete bus",
+                                    "Can change bus"
+                                ]
+                            },
+                            {
+                                "id": 3,
+                                "permissions": [
+                                    "Can view bus",
+                                    "Can edit bus",
+                                    "Can delete bus",
+                                    "Can change bus"
+                                ]
+                            }
+                        ]
+                    }
+                }
+                
+            }
+        }
+    }
+}
+
