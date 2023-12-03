@@ -6,5 +6,5 @@ from rest_framework import routers
 
 app_name = 'grouphandler'
 router = routers.SimpleRouter()
-router.register('group', GroupViewset, basename='group')
+router.register('', GroupViewset, basename='group')
 urlpatterns = router.urls
