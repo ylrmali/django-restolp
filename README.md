@@ -4,7 +4,7 @@
 
 # Installation
 -------------
-### 1. Install `django-restolp` library with pip.
+### 1. Install `djangorestolp` library with pip.
 
 ```bash
 pip install git+https://github.com/ylrmali/django-restolp.git
@@ -12,7 +12,7 @@ pip install git+https://github.com/ylrmali/django-restolp.git
 ```
 ! pypip installation will come
 
-### 2. Add `django-restolp` to your `INSTALLED_APPS` setting.
+### 2. Add `djangorestolp` to your `INSTALLED_APPS` setting.
 
 ```python
 INSTALLED_APPS = [
@@ -32,12 +32,12 @@ AUTHENTICATION_BACKENDS = (
 
 ```
 
-### 4. Add `django-restolp.urls` to your main `urls.py` urlpatterns.
+### 4. Add `djangorestolp.urls` to your main `urls.py` urlpatterns.
 
 ```python
     urlpatterns = [
         ...
-        path('', include('djangorestolp')),
+        path('', include('djangorestolp.urls')),
         ...
     ]
 
@@ -60,7 +60,7 @@ AUTHENTICATION_BACKENDS = (
 ## Usage in code block
 ### **UserModelPermission()**
 ```python
-from django-restolp.modelpermission.utils import UserPermission
+from djangorestolp.modelpermission.utils import UserPermission
 ```
 > methods
 > 
@@ -102,7 +102,7 @@ from django-restolp.modelpermission.utils import UserPermission
 
 ### GroupModelLevelPermission()
 ```python
-from django-restolp.modelpermission.utils import GroupModelLevelPermission
+from djangorestolp.modelpermission.utils import GroupModelLevelPermission
 ```
 
 > methods
@@ -138,7 +138,7 @@ from django-restolp.modelpermission.utils import GroupModelLevelPermission
 
 ### UserObjectLevelPermission()
 ```python
-from django-restolp.objectpermission.utils import UserObjectLevelPermission
+from djangorestolp.objectpermission.utils import UserObjectLevelPermission
 ```
 
 > methods
@@ -157,7 +157,7 @@ from django-restolp.objectpermission.utils import UserObjectLevelPermission
 
 ### GroupObjectLevelPermission()
 ```python
-from django-restolp.objectpermission.utils import GroupObjectLevelPermission
+from djangorestolp.objectpermission.utils import GroupObjectLevelPermission
 ```
 > methods
 > 
