@@ -88,30 +88,6 @@ class UserModelLevelPermissions(BaseModelLevelPermissions):
         }
         return result
 
-    def create_group_or_assgin_user(
-        self, 
-        group : Group | str,
-        user : object | None = None,
-        both : bool = False 
-        ) -> None:
-        '''
-            create new group, assign user to group or both
-            if user is None, create new group
-            if user is not None but group is None, create new group and assign user to group
-            if both is True, create new group and assign user to group
-        '''
-        if user is None and isinstance(group,  str):
-            group = Group.objects.create(name=group)
-        elif user is not None and group is None:
-            raise Exception('You should provide group name')
-        elif user is None and isinstance(group, Group):
-            raise Exception('You should provide user')
-        elif (user is not None and isinstance(group, str)) and (both is True):
-            group = Group.objects.create(name=group)
-            user.groups.add(group)
-        elif user is not None and isinstance(group, Group):
-            user.groups.add(group)
-
     def set_user_permission_api(
             self, 
             user : int, 
@@ -202,6 +178,49 @@ class GroupModelLevelPermission(BaseModelLevelPermissions):
     '''
     This class provides model level permissions for group
     '''
+    def create_group_or_assgin_user(
+        self, 
+        group : Group | str,
+        user : object | None = None,
+        both : bool = False 
+        ) -> None:
+        '''
+            create new group, assign user to group or both\n
+            user is None and group isinstance str ---> create new group\n
+            user is not None and group isinstance of Group -----> assign group to user\n
+            user is not None and group is not None and both is True ---> create new group and assign user to group\n
+            both is True ---> give access to create group and assign user same time\n
+        '''
+        if user is None and isinstance(group,  str):
+            group = Group.objects.create(name=group)
+        elif user is not None and group is None:
+            raise Exception('You should provide group name')
+        elif user is None and isinstance(group, Group):
+            raise Exception('You should provide user')
+        elif user is not None and isinstance(group, Group):
+            user.groups.add(group)
+        elif (user is not None and isinstance(group, str)) and (both is True):
+            try:
+                group = Group.objects.create(name=group)
+                user.groups.add(group.id)
+            except Exception as e:
+                group = Group.objects.get(name=group)
+                user.groups.add(group.id)
+        elif user is not None and isinstance(group, Group):
+            user.groups.add(group)
+
+    def remove_group_from_user(
+        self,
+        group : Group,
+    ) -> None:
+        '''
+            remove group user
+        '''
+        users = get_user_model().objects.filter(groups__name=group.name)
+        for user in users:
+            user.groups.remove(group)
+        
+
     def set_group_permission(
             self, 
             group : Group | str, 

@@ -5,6 +5,7 @@ from djangorestolp.objectpermission.views import (
 )
 from django.urls import path
 
+app_name = 'objectpermission'
 router = routers.SimpleRouter()
 
 urlpatterns = router.urls

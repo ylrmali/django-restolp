@@ -15,7 +15,9 @@ Example:
 """
 from django.urls import path, include
 
+app_name = 'djangorestolp'
 urlpatterns = [
     path('mlp/', include('djangorestolp.modelpermission.urls')),
-    path('olp/', include('djangorestolp.objectpermission.urls'))
+    path('olp/', include('djangorestolp.objectpermission.urls')),
+    path('gh/', include('djangorestolp.grouphandler.urls')),
 ]

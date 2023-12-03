@@ -7,6 +7,7 @@ from djangorestolp.modelpermission.views import (
     GroupPermissions)
 from django.urls import path
 
+app_name = 'modelpermission'
 router = routers.SimpleRouter()
 
 urlpatterns = router.urls
