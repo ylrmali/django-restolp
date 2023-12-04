@@ -7,6 +7,7 @@ from guardian.models import (
     GroupObjectPermission)
 from django.apps import apps
 from djangorestolp.modelpermission.utils import BaseModelLevelPermissions
+from guardian.shortcuts import remove_perm
 import json
 
 class BaseObjectLevelPermission:
@@ -158,6 +159,34 @@ class BaseObjectLevelPermission:
             return apps.get_model(app_label, model)
         else:
             raise ValueError("You must specify app_label and model")
+        
+    def _get_model_name(self, model : object) -> str:
+        '''
+        Get model name
+        '''
+        return model.__name__.lower()
+    
+    def _get_permission_name(
+            self, 
+            model : object, 
+            permission_level: int
+        ) -> list:
+        '''
+        Get permission name
+        '''
+        perm_map = {
+            1: ["view_%s" % self._get_model_name(model=model)],
+            2: ["view_%s" % self._get_model_name(model=model), 
+                "add_%s" % self._get_model_name(model=model)],
+            3: ["view_%s" % self._get_model_name(model=model), 
+                "add_%s" % self._get_model_name(model=model), 
+                "change_%s" % self._get_model_name(model=model)],
+            4: ["view_%s" % self._get_model_name(model=model), 
+                "add_%s" % self._get_model_name(model=model), 
+                "change_%s" % self._get_model_name(model=model),
+                "delete_%s" % self._get_model_name(model=model)],
+        }
+        return perm_map[permission_level] 
             
     def _set_permission(
             self, 
@@ -343,6 +372,58 @@ class UserObjectLevelPermission(BaseObjectLevelPermission):
                     permission=permission,
                     user=user
                 )
+    def bulk_assign_user(
+            self, 
+            model : object,
+            user : list, 
+            obj : object,
+            permission_level : int
+        ) -> bool:
+        '''
+        Bulk assign user to object
+        User must be list of user id or list of user object
+        '''
+        if not isinstance(user, list):
+            raise TypeError('User must be list of user id or list of user object')
+        for u in user:
+            if isinstance(u, int):
+                user = get_user_model().objects.get(id=u)
+            elif isinstance(u, get_user_model()):
+                user = u
+            else:
+                raise TypeError('User must be list of user id or list of user object')
+            
+            try:
+                self.set_object_level_permissions(
+                    model=model,
+                    obj=obj,
+                    user=user,
+                    permission_level=permission_level
+                )
+            except Exception as err:
+                raise Exception('Error: %s') % err
+        return True
+
+    def remove_user_permission(
+            self,
+            model : object,
+            user : object,
+            obj : object,
+            permission_level : int
+    ) -> bool:
+        '''
+        Remove user from object
+        '''
+        try:
+            for perm in self._get_permission_name(model=model, permission_level=permission_level):
+                remove_perm(
+                    perm=perm,
+                    user=user,
+                    obj=obj
+                )
+            return True
+        except Exception as err:
+            raise Exception('Error: %s') % err
 
     def get_all_user_permissions(self) -> dict:
         '''
@@ -467,6 +548,60 @@ class GroupObjectLevelPermission(BaseObjectLevelPermission):
                     permission=permission,
                     group=group
                 )
+
+        
+    def bulk_assign_group(
+            self,
+            model : object,
+            group : list,
+            obj : object,
+            permission_level : int
+    ) -> bool:
+        '''
+        Bulk assign group to object
+        '''
+        if not isinstance(group, list):
+            raise TypeError('Group must be list of group id or list of group object')
+        
+        for g in group:
+            if isinstance(g, int):
+                group = Group.objects.get(id=g)
+            elif isinstance(g, Group):
+                group = g
+            else:
+                raise TypeError('Group must be list of group id or list of group object')
+            
+            try:
+                self.set_object_level_permissions(
+                    model=model,
+                    obj=obj,
+                    group=group,
+                    permission_level=permission_level
+                )
+            except Exception as err:
+                raise Exception('Error: %s') % err
+        return True
+    
+    def remove_group_permission(
+            self,
+            model : object,
+            group : Group,
+            obj : object,
+            permission_level : int
+    ) -> bool:
+        '''
+        Remove group from object
+        '''
+        try:
+            for perm in self._get_permission_name(model=model, permission_level=permission_level):
+                remove_perm(
+                    perm=perm,
+                    group=group,
+                    obj=obj
+                )
+            return True
+        except Exception as err:
+            raise Exception('Error: %s') % err
 
     def get_all_group_permissions(self) -> dict:
         '''
