@@ -219,7 +219,19 @@ class GroupModelLevelPermission(BaseModelLevelPermissions):
         users = get_user_model().objects.filter(groups__name=group.name)
         for user in users:
             user.groups.remove(group)
-        
+
+    def remove_single_user_from_group(
+            self,
+            group : Group,
+            user : object
+        ) -> None:
+        '''
+            remove single user from group
+        '''
+        try:
+            user.groups.remove(group)
+        except Exception as e:
+            raise Exception(e)
 
     def set_group_permission(
             self, 
