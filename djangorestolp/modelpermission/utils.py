@@ -38,6 +38,86 @@ class BaseModelLevelPermissions:
         else:
             raise Exception('You should provide permission level')
         return permissions
+    
+    def _get_content_type(
+            self, 
+            model : object | str,
+            app_label : str
+        ) -> object:
+        '''
+            get content type of model
+        '''
+        if isinstance(model, str):
+            try:
+                content_type = ContentType.objects.get(app_label=app_label, model=model.lower())
+            except ContentType.DoesNotExist:
+                raise Exception('Model does not exist')
+        elif isinstance(model, object):
+            try:
+                content_type = ContentType.objects.get_for_model(model)
+            except ContentType.DoesNotExist:
+                raise Exception('Model does not exist')
+        else:
+            raise Exception('You should provide model or model name')
+        return content_type
+    
+    def _split_permission(
+            self,
+            permission : str
+        ) -> list:
+        '''
+            split permission
+        '''
+        if isinstance(permission, str):
+            # check has a dot
+            if '.' not in permission:
+                raise Exception('You should provide permission like app_label.codename')
+            else:
+                permission = permission.split('.')
+                if '_' not in permission[1]:
+                    raise Exception('You should provide permission like app_label.codename')
+                else:
+                    model = permission[1].split('_')[1]
+                    permission.append(model)
+                    return permission
+    
+
+    def _get_multiple_permission_id(
+            self,
+            permission_list : list,
+        ) -> list:
+        '''
+            this method return list of permission id
+            permission list should be list of permission app_label.codename
+        '''
+        permissions = []
+        for permission in permission_list:
+            app_label, codename, model = self._split_permission(permission)
+            permission = Permission.objects.get(
+                codename__icontains=codename,
+                content_type=self._get_content_type(
+                                    model=model, 
+                                    app_label=app_label).id
+            )
+            permissions.append(permission.id)
+        return permissions
+
+    def _get_permission_id(
+            self, 
+            permission : str, 
+        ) -> int:
+        '''
+            permission should be app_label.codename 
+            get permission id
+        '''
+        app_label, codename, model = self._split_permission(permission)
+        permission = Permission.objects.get(
+            codename__icontains=codename,
+            content_type=self._get_content_type(
+                                model=model, 
+                                app_label=app_label).id
+        )
+        return permission.id
 
 
 class UserModelLevelPermissions(BaseModelLevelPermissions):
@@ -230,6 +310,19 @@ class GroupModelLevelPermission(BaseModelLevelPermissions):
         '''
         try:
             user.groups.remove(group)
+        except Exception as e:
+            raise Exception(e)
+        
+    def add_group_permission(
+            self,
+            group : Group,
+            perm_list : list
+        ) -> None:
+        '''
+            add permission to group
+        '''
+        try:
+            group.permissions.add(self._get_multiple_permission_id(perm_list))
         except Exception as e:
             raise Exception(e)
 
