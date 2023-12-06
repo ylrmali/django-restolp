@@ -177,13 +177,13 @@ class BaseObjectLevelPermission:
         perm_map = {
             1: ["view_%s" % self._get_model_name(model=model)],
             2: ["view_%s" % self._get_model_name(model=model), 
-                "add_%s" % self._get_model_name(model=model)],
-            3: ["view_%s" % self._get_model_name(model=model), 
-                "add_%s" % self._get_model_name(model=model), 
                 "change_%s" % self._get_model_name(model=model)],
+            3: ["view_%s" % self._get_model_name(model=model), 
+                "change_%s" % self._get_model_name(model=model), 
+                "add_%s" % self._get_model_name(model=model)],
             4: ["view_%s" % self._get_model_name(model=model), 
-                "add_%s" % self._get_model_name(model=model), 
-                "change_%s" % self._get_model_name(model=model),
+                "change_%s" % self._get_model_name(model=model), 
+                "add_%s" % self._get_model_name(model=model),
                 "delete_%s" % self._get_model_name(model=model)],
         }
         return perm_map[permission_level] 

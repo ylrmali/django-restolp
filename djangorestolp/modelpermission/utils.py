@@ -23,13 +23,13 @@ class BaseModelLevelPermissions:
         elif permission_level == 2:
             permissions = Permission.objects.filter(
                 Q(codename__icontains='view', content_type=content_type.id) | 
-                Q(codename__icontains='add', content_type=content_type.id)
+                Q(codename__icontains='change', content_type=content_type.id)
             )
         elif permission_level == 3:
             permissions = Permission.objects.filter(
                 Q(codename__icontains='view', content_type=content_type.id) | 
-                Q(codename__icontains='add', content_type=content_type.id) | 
-                Q(codename__icontains='change', content_type=content_type.id)
+                Q(codename__icontains='change', content_type=content_type.id) | 
+                Q(codename__icontains='add', content_type=content_type.id)
             )
         elif permission_level == 4:
             permissions = Permission.objects.filter(
@@ -209,9 +209,9 @@ class UserModelLevelPermissions(BaseModelLevelPermissions):
             user can be instance of user model or username or list of username
             permission_level;
                 1: view
-                2: view, add
-                3: view, add, change
-                4: view, add, change, delete
+                2: view, change
+                3: view, change, add
+                4: view, change, add, delete
             model: model name or instance of model
             app_label: app name
         '''
@@ -337,9 +337,9 @@ class GroupModelLevelPermission(BaseModelLevelPermissions):
             group can be instance of group model or group name
             permission_level;
                 1: view
-                2: view, add
-                3: view, add, change
-                4: view, add, change, delete
+                2: view, change
+                3: view, change, add
+                4: view, change, add, delete
             model: model name or instance of model
             app_label: app name
         '''
