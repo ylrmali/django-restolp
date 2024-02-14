@@ -418,7 +418,7 @@ class UserObjectLevelPermission(BaseObjectLevelPermission):
             for perm in self._get_permission_name(model=model, permission_level=permission_level):
                 remove_perm(
                     perm=perm,
-                    user=user,
+                    user_or_group=user,
                     obj=obj
                 )
             return True
@@ -596,7 +596,7 @@ class GroupObjectLevelPermission(BaseObjectLevelPermission):
             for perm in self._get_permission_name(model=model, permission_level=permission_level):
                 remove_perm(
                     perm=perm,
-                    group=group,
+                    user_or_group=group,
                     obj=obj
                 )
             return True
