@@ -1,5 +1,4 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import DjangoObjectPermissions
 from djangorestolp.permissions import DROPermission
 from guardian.shortcuts import get_objects_for_user
 
@@ -11,7 +10,7 @@ class DROViewSet(ModelViewSet):
     Base viewset class for Django Rest Object.
     This class is used to check object-level permissions.
     '''
-    permission_classes = [DROPermission, DjangoObjectPermissions]  # Default permission for all actions
+    permission_classes = [DROPermission]  # Default permission for all actions
 
     def get_app_label(self):
         '''
