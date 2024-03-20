@@ -1,8 +1,8 @@
-from rest_framework.permissions import DjangoObjectPermissions, DjangoModelPermission
+from rest_framework import permissions 
 from djangorestolp.settings import api_settings
 
 
-class DROPermission(DjangoObjectPermissions):
+class DROPermission(permissions.DjangoObjectPermissions):
     """
     Override DjangoObjectPermission class to permission map 
     and optinal user configurations
