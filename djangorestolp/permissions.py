@@ -50,7 +50,7 @@ class DROPermission(permissions.DjangoObjectPermissions):
 
     def has_object_permission(self, request, view, obj):
         user = request.user
-        dro_conf = api_setting.DRO_CONF  # Access user-configured setting
+        dro_conf = api_settings.DRO_CONF  # Access user-configured setting
         try:
             bypass_staff = dro_conf['BYPASS_STAFF_USER']
             bypass_group = dro_conf['BYPASS_GROUP_LIST']
